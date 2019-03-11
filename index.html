@@ -3,41 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Vue study</title>
+    <style>
+        .square{
+            width: 100px;
+            height: 100px;
+            border: 2px solid #cccccc;
+        }
+        .red{background: red}
+        .green{background: green}
+        .blue{background: blue}
+    </style>
 </head>
 <body>
     <div id="app">
-        <h1>
-            <button @click="changeSearch"> ChangeSearch </button>
-            <br>
-            <a :href=" flag ? changeUrl('goo') : changeUrl('yan') ">{{ flag ? 'Google' : 'Yandex' }}</a>
-            <hr>
-            <input type="text" @keyup.enter="showText" />
-            <h2> {{ text }} </h2>
-        </h1>
+        <div class="square" :class="color"></div>
+        <br>
+        <p style="color: #555">what square color do you need?</p>
+        <input type="text" v-model="color" />
+        <h2>{{ color }}</h2>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     new Vue ({
         el: '#app',
         data: {
-            flag: false,
-            text: ''
+            color: ''
         },
         methods: {
-            changeSearch: function () {
-                this.flag = !this.flag
-            },
-            changeUrl: function (name){
-                if (name == 'goo')
-                {
-                    return 'https://google.com'
-                }else{
-                    return 'https://yandex.ru'
-                }
-            },
-            showText: function (event) {
-                this.text = event.target.value;
-            }
+
         }
     })
 </script>
