@@ -7,11 +7,11 @@
 <body>
     <div id="app">
         <h1>
-            <button v-on:click="changeSearch"> ChangeSearch </button>
+            <button @click="changeSearch"> ChangeSearch </button>
             <br>
-            <a v-bind:href=" flag ? changeUrl('goo') : changeUrl('yan') ">{{ flag ? 'Google' : 'Yandex' }}</a>
+            <a :href=" flag ? changeUrl('goo') : changeUrl('yan') ">{{ flag ? 'Google' : 'Yandex' }}</a>
             <hr>
-            <input type="text" v-on:keyup.enter="showText" />
+            <input type="text" @keyup.enter="showText" />
             <h2> {{ text }} </h2>
         </h1>
     </div>
