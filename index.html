@@ -7,10 +7,9 @@
 <body>
     <div id="app">
         <h1>
-            <button v-on:click="changeUrlToGoogle()">Change to Google</button>
-            <button v-on:click="changeUrlToYandex()">Change to Yandex</button>
+            <button v-on:click="changeSearch"> ChangeSearch </button>
             <br>
-            <a v-bind:href=" flag ? google_url : yandex_url ">{{ flag ? 'Google' : 'Yandex' }}</a>
+            <a v-bind:href=" flag ? changeUrl('goo') : changeUrl('yan') ">{{ flag ? 'Google' : 'Yandex' }}</a>
         </h1>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -18,18 +17,20 @@
     new Vue ({
         el: '#app',
         data: {
-            name: "МЫФ",
             flag: false,
-            google_url:'https://google.com',
-            yandex_url:'https://yandex.ru'
         },
         methods: {
-            changeUrlToGoogle: function (search){
-                this.flag = true
+            changeSearch: function () {
+                this.flag = !this.flag
             },
-            changeUrlToYandex: function (search){
-                this.flag = false
-            },
+            changeUrl: function (name){
+                if (name == 'goo')
+                {
+                    return 'https://google.com'
+                }else{
+                    return 'https://yandex.ru'
+                }
+            }
         }
     })
 </script>
