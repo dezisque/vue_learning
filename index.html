@@ -16,21 +16,59 @@
 </head>
 <body>
     <div id="app">
-        <div class="square" :class="color"></div>
+        <div class="square" :style="styleClasses"></div>
         <br>
-        <p style="color: #555">what square color do you need?</p>
+        <p style="color: #555">what <span :style="{'color':color}">square</span> color do you need?</p>
         <input type="text" v-model="color" />
-        <h2>{{ color }}</h2>
+        <p style="color: #555">what <span :style="{'color':bordercolor}">border</span> color do you need?</p>
+        <input type="text" v-model="bordercolor" /><br>
+        <button style="float:left; margin-top: 15px" @click="changeWidth('minus')">minus width</button>
+        <p style="float:left; margin: 15px 10px">Width: {{ currentWidth }}</p>
+        <button style="float:left; margin-top: 15px" @click="changeWidth('plus')">plus width</button>
+        <br>
+        <div style="clear: left"></div>
+        <button style="float:left; margin-top: 15px" @click="changeHeight('minus')">minus height</button>
+        <p style="float:left; margin: 15px 10px">Height: {{ currentHeight }}</p>
+        <button style="float:left; margin-top: 15px" @click="changeHeight('plus')">plus height</button>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     new Vue ({
         el: '#app',
         data: {
-            color: ''
+            color: '',
+            bordercolor: '',
+            currentWidth: 100,
+            currentHeight: 100
         },
         methods: {
+            changeWidth: function (sign, event) {
+                if ((sign === 'minus')&&(this.currentWidth >= 10))
+                {
+                    this.currentWidth -=10
+                }else{
+                    this.currentWidth +=10
+                }
+            },
 
+            changeHeight: function (sign, event) {
+                if ((sign === 'minus')&&(this.currentHeight >= 10))
+                {
+                    this.currentHeight -=10
+                }else{
+                    this.currentHeight +=10
+                }
+            }
+        },
+        computed:{
+            styleClasses:function () {
+                return {
+                    'background': this.color,
+                    'border-color': this.bordercolor,
+                    'width' : this.currentWidth + 'px',
+                    'height' : this.currentHeight + 'px'
+                }
+            }
         }
     })
 </script>
