@@ -6,19 +6,29 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-on:input="changeName" />
-        <h1>{{ name }}</h1>
+        <h1>
+            <button v-on:click="changeUrlToGoogle()">Change to Google</button>
+            <button v-on:click="changeUrlToYandex()">Change to Yandex</button>
+            <br>
+            <a v-bind:href=" flag ? google_url : yandex_url ">{{ flag ? 'Google' : 'Yandex' }}</a>
+        </h1>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     new Vue ({
         el: '#app',
         data: {
-            name: "МЫФ"
+            name: "МЫФ",
+            flag: false,
+            google_url:'https://google.com',
+            yandex_url:'https://yandex.ru'
         },
         methods: {
-            changeName: function (event) {
-                this.name = event.target.value;
+            changeUrlToGoogle: function (search){
+                this.flag = true
+            },
+            changeUrlToYandex: function (search){
+                this.flag = false
             },
         }
     })
