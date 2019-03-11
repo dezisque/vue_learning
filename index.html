@@ -10,6 +10,9 @@
             <button v-on:click="changeSearch"> ChangeSearch </button>
             <br>
             <a v-bind:href=" flag ? changeUrl('goo') : changeUrl('yan') ">{{ flag ? 'Google' : 'Yandex' }}</a>
+            <hr>
+            <input type="text" v-on:keyup.enter="showText" />
+            <h2> {{ text }} </h2>
         </h1>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -18,6 +21,7 @@
         el: '#app',
         data: {
             flag: false,
+            text: ''
         },
         methods: {
             changeSearch: function () {
@@ -30,6 +34,9 @@
                 }else{
                     return 'https://yandex.ru'
                 }
+            },
+            showText: function (event) {
+                this.text = event.target.value;
             }
         }
     })
