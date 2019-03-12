@@ -12,6 +12,7 @@
         <h1 v-else>does not match</h1>
         <hr>
         <p>Enter word what you want to see</p>
+        <h3 ref="heading">I will be red if you type 'a', else i will be green</h3>
         <input type="text" @keyup.enter="readLetter" />
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -19,11 +20,17 @@
     new Vue ({
         el: '#app',
         data: {
-            letter: 'a',
+            letter: 'a'
         },
         methods: {
             readLetter: function (event) {
-              this.letter = event.target.value
+                this.letter = event.target.value;
+                if (this.letter === 'a'){
+                    this.$refs.heading.style.color = 'red'
+                }else
+                {
+                    this.$refs.heading.style.color = 'green'
+                }
             }
         }
     })
