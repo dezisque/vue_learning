@@ -6,37 +6,24 @@
 </head>
 <body>
     <div id="app">
-        <h1>
-            <button @click="changeSearch"> ChangeSearch </button>
-            <br>
-            <a :href=" flag ? changeUrl('goo') : changeUrl('yan') ">{{ flag ? 'Google' : 'Yandex' }}</a>
-            <hr>
-            <input type="text" @keyup.enter="showText" />
-            <h2> {{ text }} </h2>
-        </h1>
+        <h1 v-if="letter === 'a'">A</h1>
+        <h1 v-else-if="letter === 'b'">B</h1>
+        <h1 v-else-if="letter === 'c'">C</h1>
+        <h1 v-else>does not match</h1>
+        <hr>
+        <p>Enter word what you want to see</p>
+        <input type="text" @keyup.enter="readLetter" />
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     new Vue ({
         el: '#app',
         data: {
-            flag: false,
-            text: ''
+            letter: 'a',
         },
         methods: {
-            changeSearch: function () {
-                this.flag = !this.flag
-            },
-            changeUrl: function (name){
-                if (name == 'goo')
-                {
-                    return 'https://google.com'
-                }else{
-                    return 'https://yandex.ru'
-                }
-            },
-            showText: function (event) {
-                this.text = event.target.value;
+            readLetter: function (event) {
+              this.letter = event.target.value
             }
         }
     })
