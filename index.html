@@ -9,6 +9,40 @@
             height: 100px;
             border: 2px solid #cccccc;
         }
+
+        .small
+        {
+            width: 10px;
+            height: 10px;
+        }
+
+        .dot
+        {
+            position: absolute;
+            background-color: red;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100px;
+            border-radius: 8px;
+            height: 7px;
+            border: 1px solid #bdc3c7;
+            background-color: #fff;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: 3px solid #cccccc;
+            width: 5px;
+            height: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
         .red{background: red}
         .green{background: green}
         .blue{background: blue}
@@ -16,57 +50,48 @@
 </head>
 <body>
     <div id="app">
-        <div class="square" :style="styleClasses"></div>
-        <br>
-        <p style="color: #555">what <span :style="{'color':color}">square</span> color do you need?</p>
-        <input type="text" v-model="color" />
-        <p style="color: #555">what <span :style="{'color':bordercolor}">border</span> color do you need?</p>
-        <input type="text" v-model="bordercolor" /><br>
-        <button style="float:left; margin-top: 15px" @click="changeWidth('minus')">minus width</button>
-        <p style="float:left; margin: 15px 10px">Width: {{ currentWidth }}</p>
-        <button style="float:left; margin-top: 15px" @click="changeWidth('plus')">plus width</button>
-        <br>
-        <div style="clear: left"></div>
-        <button style="float:left; margin-top: 15px" @click="changeHeight('minus')">minus height</button>
-        <p style="float:left; margin: 15px 10px">Height: {{ currentHeight }}</p>
-        <button style="float:left; margin-top: 15px" @click="changeHeight('plus')">plus height</button>
+        <div style="float:left" v-if="isHide" :style="[changeColor]" class="square">
+            <div class="dot" :style="[smallSquareStyle]"></div>
+            <div class="square small" :style="[smallSquareStyle]"></div>
+        </div>
+        <input v-if="isHide" style="float:left; -webkit-transform: rotate(90deg); margin-top: 47px"
+               type="range" min="0" max="86" step="1" value="43"
+               @input="changeVertPosition" />
+        <div style="clear:left"></div>
+        <input style="margin-top: 40px" v-if="isHide" type="range" min="0" max="86" step="1" value="43" @input="changeHorPosition" />
+        <hr>
+        <button @click="isHide=!isHide">{{isHide ? 'Hide square' : 'Display square'}}</button>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     new Vue ({
         el: '#app',
         data: {
-            color: '',
+            isHide : true,
+            bgcolor : '',
             bordercolor: '',
-            currentWidth: 100,
-            currentHeight: 100
+            horposition : 50,
+            vertposition : 50
         },
         methods: {
-            changeWidth: function (sign, event) {
-                if ((sign === 'minus')&&(this.currentWidth >= 10))
-                {
-                    this.currentWidth -=10
-                }else{
-                    this.currentWidth +=10
-                }
+            changeHorPosition:function (event) {
+                this.horposition = event.target.value;
             },
-
-            changeHeight: function (sign, event) {
-                if ((sign === 'minus')&&(this.currentHeight >= 10))
-                {
-                    this.currentHeight -=10
-                }else{
-                    this.currentHeight +=10
-                }
+            changeVertPosition:function (event) {
+                this.vertposition = event.target.value;
             }
         },
         computed:{
-            styleClasses:function () {
-                return {
-                    'background': this.color,
-                    'border-color': this.bordercolor,
-                    'width' : this.currentWidth + 'px',
-                    'height' : this.currentHeight + 'px'
+            changeColor:function () {
+                return{
+                    'background':this.bgcolor,
+                    'border-color' : this.bordercolor
+                }
+            },
+            smallSquareStyle:function () {
+                return{
+                    'margin-left':this.horposition + 'px',
+                    'margin-top':this.vertposition + 'px',
                 }
             }
         }
