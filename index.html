@@ -50,6 +50,7 @@
 </head>
 <body>
     <div id="app">
+<<<<<<< HEAD
         <div style="float:left" v-if="isHide" :style="[changeColor]" class="square">
             <div class="dot" :style="[smallSquareStyle]"></div>
             <div class="square small" :style="[smallSquareStyle]"></div>
@@ -61,12 +62,23 @@
         <input style="margin-top: 40px" v-if="isHide" type="range" min="0" max="86" step="1" value="43" @input="changeHorPosition" />
         <hr>
         <button @click="isHide=!isHide">{{isHide ? 'Hide square' : 'Display square'}}</button>
+=======
+        <h1 v-if="letter === 'a'">A</h1>
+        <h1 v-else-if="letter === 'b'">B</h1>
+        <h1 v-else-if="letter === 'c'">C</h1>
+        <h1 v-else>does not match</h1>
+        <hr>
+        <p>Enter word what you want to see</p>
+        <h3 ref="heading">I will be red if you type 'a', else i will be green</h3>
+        <input type="text" @keyup.enter="readLetter" />
+>>>>>>> f499b8891cb8ef1d18e9535d9ebe63af74d8cd65
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     new Vue ({
         el: '#app',
         data: {
+<<<<<<< HEAD
             isHide : true,
             bgcolor : '',
             bordercolor: '',
@@ -93,6 +105,19 @@
                     'margin-left':this.horposition + 'px',
                     'margin-top':this.vertposition + 'px',
                 }
+=======
+            letter: 'a'
+        },
+        methods: {
+            readLetter: function (event) {
+                this.letter = event.target.value;
+                if (this.letter === 'a'){
+                    this.$refs.heading.style.color = 'red'
+                }else
+                {
+                    this.$refs.heading.style.color = 'green'
+                }
+>>>>>>> f499b8891cb8ef1d18e9535d9ebe63af74d8cd65
             }
         }
     })
